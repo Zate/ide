@@ -1,0 +1,7 @@
+.git
+.cache
+docker-compose.yaml
+docker-stack.yaml
+Dockerfile*
+.gitignore
+*.md

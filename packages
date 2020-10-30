@@ -1,0 +1,13 @@
+apt-utils
+ca-certificates
+curl
+dumb-init
+git
+locales
+net-tools
+openssh-client
+python3-pip
+software-properties-common
+sudo
+unzip
+wget

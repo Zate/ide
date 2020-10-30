@@ -1,0 +1,42 @@
+version: '3'
+services:
+  ide:
+    image: ${IMAGE}
+    build:
+      context: .
+      args:
+        USER: ${USER}
+        EMAIL: ${EMAIL}
+    container_name: ide
+    restart: on-failure
+    environment:
+      - USER=${USER}
+      - EMAIL=${EMAIL}
+    networks:
+      - internal
+      - traefik-public
+    volumes:
+      - /home/${USER}/go/src/github.com/${USER}:/home/${USER}/project:cached
+      - /home/${USER}/.ssh:/home/${USER}/.ssh:cached
+      - /home/${USER}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.backend=ide
+        - traefik.frontend.rule=Host:${DOMAIN}
+        - traefik.docker.network=traefik-public
+        - traefik.enable=true
+        - traefik.port=8443
+        - traefik.tags=traefik-public
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+
+networks:
+  traefik-public:
+    external: true
+  internal:
+    external: false
