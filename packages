@@ -11,3 +11,4 @@ software-properties-common
 sudo
 unzip
 wget
+vim
