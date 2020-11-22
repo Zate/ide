@@ -19,9 +19,9 @@ RUN source .local/.bash_inc && \
     upCodeServer && \
     git config --global user.name ${USER} && \
     git config --global user.email ${EMAIL}
-VOLUME [ "/home/${USER}/project" ]
-VOLUME [ "/home/${USER}/.aws" ]
-VOLUME [ "/home/${USER}/.ssh" ]
+#VOLUME [ "/home/${USER}/project" ]
+#VOLUME [ "/home/${USER}/.aws" ]
+#VOLUME [ "/home/${USER}/.ssh" ]
 EXPOSE 8443
 ENTRYPOINT ["dumb-init", "--", "entrypoint-docker.sh"]
 CMD ["code-server", "--host", "0.0.0.0", "--port", "8443", "--auth", "none", "--locale", "en-US"]
