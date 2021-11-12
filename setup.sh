@@ -19,7 +19,7 @@ adduser ${1} sudo
 echo "${1} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 echo "alias python=python3" >> /etc/profile
 echo "alias pip=pip3" >> /etc/profile
-mkdir -p /home/${1}/{bin,.aws,.ssh,.local/bin,project}
+mkdir -p /home/${1}/{bin,.aws,.ssh,.local/bin,projects}
 chown -R ${1}:${1} /home/${1}
 python3 -m pip install --upgrade pip
 apt-get clean

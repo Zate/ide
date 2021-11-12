@@ -14,14 +14,16 @@ WORKDIR /home/${USER}
 COPY --chown=${USER}:${USER} bash_inc .local/.bash_inc
 RUN source .local/.bash_inc && \
     upGo && \
-    upTerraform && \
-    upAWS && \
+    # upTerraform && \
+    # upAWS && \
     upCodeServer && \
+    upGoTools && \
+    upPath && \
     git config --global user.name ${USER} && \
     git config --global user.email ${EMAIL}
-VOLUME [ "/home/${USER}/project" ]
-VOLUME [ "/home/${USER}/.aws" ]
-VOLUME [ "/home/${USER}/.ssh" ]
+VOLUME [ "${HOME}/projects" ]
+VOLUME [ "${HOME}/.aws" ]
+VOLUME [ "${HOME}/.ssh" ]
 EXPOSE 8443
 ENTRYPOINT ["dumb-init", "--", "entrypoint-docker.sh"]
 CMD ["code-server", "--host", "0.0.0.0", "--port", "8443", "--auth", "none", "--locale", "en-US"]

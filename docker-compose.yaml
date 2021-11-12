@@ -18,9 +18,9 @@ services:
     networks:
       - internal
     volumes:
-      - /home/${USER}/go/src/github.com/${USER}:/home/${USER}/project:cached
-      - /home/${USER}/.ssh:/home/${USER}/.ssh:cached
-      - /home/${USER}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
+      - ${HOME}/projects:/home/${USER}/projects:cached
+      - ${HOME}/.ssh:/home/${USER}/.ssh:cached
+      - ${HOME}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
 networks:
   internal:
     external: false

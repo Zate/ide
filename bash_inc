@@ -27,7 +27,7 @@ upPath () {
 upTerraform() {
         URL=$(wget -qO- https://www.terraform.io/downloads.html | grep -oP 'https://releases.hashicorp.com/terraform/([0-9\.]+)/terraform_([0-9\.]+)_linux_amd64.zip')
         cd ~/bin
-        wget -q --continue $URL 
+        wget -q --continue $URL
         unzip -qqou terraform_*_linux_amd64.zip
         echo "Using: `which terraform`"
         echo "Version: `terraform version`"
@@ -36,25 +36,26 @@ upTerraform() {
 }
 
 upGoTools() {
-    
-    go get -u github.com/mdempsky/gocode
-    go get -u github.com/uudashr/gopkgs/v2/cmd/gopkgs
-    go get -u github.com/ramya-rao-a/go-outline
-    go get -u github.com/acroca/go-symbols
-    go get -u golang.org/x/tools/cmd/guru
-    go get -u golang.org/x/tools/cmd/gorename
-    go get -u github.com/cweill/gotests/...
-    go get -u github.com/fatih/gomodifytags
-    go get -u github.com/josharian/impl
-    go get -u github.com/davidrjenni/reftools/cmd/fillstruct
-    go get -u github.com/haya14busa/goplay/cmd/goplay
-    go get -u github.com/godoctor/godoctor
-    go get -u github.com/go-delve/delve/cmd/dlv
-    go get -u github.com/stamblerre/gocode
-    go get -u github.com/rogpeppe/godef
-    go get -u github.com/sqs/goreturns
-    go get -u golang.org/x/lint/golint
-    go get -u golang.org/x/tools/gopls
+
+    GO111MODULE=on go install github.com/mdempsky/gocode@latest
+    GO111MODULE=on go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
+    GO111MODULE=on go install github.com/ramya-rao-a/go-outline@latest
+    GO111MODULE=on go install github.com/acroca/go-symbols@latest
+    GO111MODULE=on go install golang.org/x/tools/cmd/guru@latest
+    GO111MODULE=on go install golang.org/x/tools/cmd/gorename@latest
+    GO111MODULE=on go install github.com/cweill/gotests/...@latest
+    GO111MODULE=on go install github.com/fatih/gomodifytags@latest
+    GO111MODULE=on go install github.com/josharian/impl@latest
+    GO111MODULE=on go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+    GO111MODULE=on go install github.com/haya14busa/goplay/cmd/goplay@latest
+    GO111MODULE=on go install github.com/godoctor/godoctor@latest
+    GO111MODULE=on go install github.com/go-delve/delve/cmd/dlv@latest
+    GO111MODULE=on go install github.com/stamblerre/gocode@latest
+    GO111MODULE=on go install github.com/rogpeppe/godef@latest
+    GO111MODULE=on go install github.com/sqs/goreturns@latest
+    GO111MODULE=on go install golang.org/x/lint/golint@latest
+    GO111MODULE=on go install golang.org/x/tools/gopls@latest
+    GO111MODULE=on go install honnef.co/go/tools/cmd/staticcheck@latest
 
 }
 
@@ -88,4 +89,3 @@ upGoTools() {
 #     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 #     echo "end install_omz"
 # }
-
