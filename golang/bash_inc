@@ -1,0 +1,78 @@
+upCodeServer() {
+    curl -fsSL https://code-server.dev/install.sh | sh -s --
+}
+
+upAWS() {
+    pip3 install -U awscli --user
+}
+
+upPip() {
+    python3 -m pip install --upgrade pip
+}
+
+upGo() {
+    sudo rm -rf /usr/local/go
+    wget -qO- https://golang.org$( wget -qO- https://golang.org/dl/ | grep -oP '/dl/go([0-9\.]+)\.linux-amd64.tar.gz' | head -1)  | sudo tar zxf - -C /usr/local
+    upPath
+    go version
+}
+
+upPath () {
+    #[[ $(grep -Fx "fi" ~/.bashrc) == "" ]] && echo "stuff" || echo "wat"
+    [[ $(grep -Fx 'source ~/.local/.bash_inc' ~/.bashrc) == "" ]] && echo 'source ~/.local/.bash_inc' >> ~/.bashrc
+    [[ $(grep -Fx 'export GOPATH=$HOME/go' ~/.local/.bash_inc) == "" ]] && echo 'export GOPATH=$HOME/go' >> ~/.local/.bash_inc
+    [[ $(grep -Fx 'export GOROOT=/usr/local/go' ~/.local/.bash_inc) == "" ]] && echo 'export GOROOT=/usr/local/go' >> ~/.local/.bash_inc
+    [[ $(grep -Fx 'export GOBIN=$GOPATH/bin' ~/.local/.bash_inc) == "" ]] && echo 'export GOBIN=$GOPATH/bin' >> ~/.local/.bash_inc
+    [[ $(grep -Fx 'export MYBIN=$HOME/bin' ~/.local/.bash_inc) == "" ]] && echo 'export MYBIN=$HOME/bin' >> ~/.local/.bash_inc
+    [[ $(grep -Fx 'export PATH=$MYBIN:$GOPATH:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH' ~/.local/.bash_inc) == "" ]] && echo 'export PATH=$GOPATH:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH' >> ~/.local/.bash_inc
+    source ~/.local/.bash_inc
+}
+
+upTerraform() {
+        URL=$(wget -qO- https://www.terraform.io/downloads.html | grep -oP 'https://releases.hashicorp.com/terraform/([0-9\.]+)/terraform_([0-9\.]+)_linux_amd64.zip')
+        cd ~/bin
+        wget -q --continue $URL 
+        unzip -qqou terraform_*_linux_amd64.zip
+        echo "Using: `which terraform`"
+        echo "Version: `terraform version`"
+        cd $OLDPWD
+}
+
+upGoTools() {
+    go install github.com/mdempsky/gocode@latest
+    go install github.com/uudashr/gopkgs/v2/cmd/gopkgs@latest
+    go install github.com/ramya-rao-a/go-outline@latest
+    go install github.com/acroca/go-symbols@latest
+    go install golang.org/x/tools/cmd/guru@latest
+    go install golang.org/x/tools/cmd/gorename@latest
+    go install github.com/cweill/gotests/...@latest
+    go install github.com/fatih/gomodifytags@latest
+    go install github.com/josharian/impl@latest
+    go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
+    go install github.com/haya14busa/goplay/cmd/goplay@latest
+    go install github.com/godoctor/godoctor@latest
+    go install github.com/go-delve/delve/cmd/dlv@latest
+    go install github.com/stamblerre/gocode@latest
+    go install github.com/rogpeppe/godef@latest
+    go install github.com/sqs/goreturns@latest
+    go install golang.org/x/lint/golint@latest
+    go install golang.org/x/tools/gopls@latest
+    go install honnef.co/go/tools/cmd/staticcheck@latest
+    cd $(mktemp -d)
+    GO111MODULE=on GOBIN=/tmp/ go install github.com/go-delve/delve/cmd/dlv@master
+    mv /tmp/dlv $GOPATH/bin/dlv-dap
+}
+
+upGoCodeX() {
+    code-server --install-extension CoenraadS.bracket-pair-colorizer
+    code-server --install-extension DavidAnson.vscode-markdownlint
+    code-server --install-extension ecmel.vscode-html-css
+    code-server --install-extension esbenp.prettier-vscode
+    code-server --install-extension golang.go
+    code-server --install-extension HookyQR.beautify
+    code-server --install-extension hwencc.html-tag-wrapper
+    code-server --install-extension mohd-akram.vscode-html-format
+    code-server --install-extension redhat.vscode-yaml
+    code-server --install-extension shd101wyy.markdown-preview-enhanced
+    code-server --install-extension yzhang.markdown-all-in-one
+}

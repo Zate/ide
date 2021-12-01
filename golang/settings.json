@@ -1,0 +1,13 @@
+{
+    "workbench.iconTheme": "material-icon-theme",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "go.useLanguageServer": true,
+    "window.zoomLevel": 2,
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "explorer.confirmDragAndDrop": false,
+    "workbench.colorTheme": "Default Dark+",
+    "redhat.telemetry.enabled": false,
+    "go.toolsManagement.autoUpdate": true
+}

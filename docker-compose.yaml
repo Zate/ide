@@ -1,26 +1,33 @@
 version: '3'
 services:
   ide:
-    image: ${IMAGE}
+    image: ${IMAGE}:${ENV}
     build:
       context: .
       args:
         USER: ${USER}
         EMAIL: ${EMAIL}
+        ENV: ${ENV}
+        IMAGE: ${IMAGE}
+        DOMAIN: ${DOMAIN}
+        IDE_LANG: ${IDE_LANG}
     container_name: ide
     restart: on-failure
     environment:
       - USER=${USER}
       - EMAIL=${EMAIL}
-    env_file: .env
+      - IMAGE=${IMAGE}
+      - ENV=${ENV}
+      - DOMAIN=${DOMAIN}
+      - IDE_LANG=${IDE_LANG}
     ports:
       - "8443:8443"
     networks:
       - internal
     volumes:
-      - /home/${USER}/go/src/github.com/${USER}:/home/${USER}/project:cached
-      - /home/${USER}/.ssh:/home/${USER}/.ssh:cached
-      - /home/${USER}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
+      - ${HOME}/go/src/github.com/${USER}:${HOME}/project:cached
+      - ${HOME}/.ssh:${HOME}/.ssh:cached
+      - ${HOME}/.local/share/code-server:${HOME}/.local/share/code-server:cached
 networks:
   internal:
     external: false
