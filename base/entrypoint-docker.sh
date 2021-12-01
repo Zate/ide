@@ -12,8 +12,6 @@ if [ "$MAP_NODE_UID" != "no" ]; then
 
     echo "dev ---> UID = $uid / GID = $gid"
 
-#    export USER=zate
-
     sudo usermod -u $uid ${USER} 2> /dev/null && {
       sudo groupmod -g $gid ${USER} 2> /dev/null || sudo usermod -a -G $gid ${USER}
     }
