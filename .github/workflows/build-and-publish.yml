@@ -32,8 +32,8 @@ jobs:
 
       - name: basic build
         run: |
-          make
-          docker push ${IMAGE}:${ENV}
+          docker build --build-arg USER=${{ secrets.USER }} --build-arg EMAIL=${{ secrets.EMAIL }} --build-arg IDE_LANG=$${{ secrets.IDE_LANG }} -t ${{ secrets.IMAGE }}:${{ secrets.ENV }} .
+          docker push ${{ secrets.IMAGE }}:${{ secrets.ENV }}
           
       
       # - name: Build image and push to Docker Hub and GitHub Container Registry
