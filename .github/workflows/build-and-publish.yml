@@ -41,6 +41,11 @@ jobs:
         run: |
           docker build --build-arg USER=${USER} --build-arg EMAIL=${EMAIL} --build-arg IDE_LANG=${IDE_LANG} -t ${IMAGE}:${ENV} .
           docker push ${IMAGE}:${ENV}
+          sleep 5
+          curl -X POST ${{ secrets.PORT_HOOK }}
+  
+ 
+
           
       
       # - name: Build image and push to Docker Hub and GitHub Container Registry
