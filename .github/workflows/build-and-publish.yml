@@ -14,6 +14,13 @@ jobs:
     # run only when code is compiling and tests are passing
     runs-on: ubuntu-latest
 
+    env:
+      USER: ${{ secrets.USER }}
+      EMAIL: ${{ secrets.EMAIL }}
+      IDE_LANG: ${{ secrets.IDE_LANG }}
+      IMAGE: ${{ secrets.IMAGE }}
+      ENV: ${{ secrets.ENV }}
+
     # steps to perform in job
     steps:
       - name: Checkout code
@@ -32,8 +39,8 @@ jobs:
 
       - name: basic build
         run: |
-          docker build --build-arg USER=${{ secrets.USER }} --build-arg EMAIL=${{ secrets.EMAIL }} --build-arg IDE_LANG=$${{ secrets.IDE_LANG }} -t ${{ secrets.IMAGE }}:${{ secrets.ENV }} .
-          docker push ${{ secrets.IMAGE }}:${{ secrets.ENV }}
+          docker build --build-arg USER=${USER} --build-arg EMAIL=${EMAIL} --build-arg IDE_LANG=${IDE_LANG} -t ${IMAGE}:${ENV} .
+          docker push ${IMAGE}:${ENV}
           
       
       # - name: Build image and push to Docker Hub and GitHub Container Registry
