@@ -4,8 +4,7 @@ set -euo pipefail
 packages=''
 
 echo "Setup for ${IDE_LANG}"
-source .env
-source .local/.bash_inc
+source ~/.local/.bash_inc
 
 echo $(date --iso-8601=seconds) > ~/.bts
 cat ~/.bts

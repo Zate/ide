@@ -25,7 +25,6 @@ USER ${USER}
 WORKDIR ${HOME}
 COPY --chown=${USER}:${USER} ${IDE_LANG}/bash_inc .local/.bash_inc
 COPY --chown=${USER}:${USER} ${IDE_LANG}/setup_lang.sh setup_lang.sh
-COPY --chown=${USER}:${USER} .env .env
 COPY --chown=${USER}:${USER} ${IDE_LANG}/packages packages
 COPY --chown=${USER}:${USER} ${IDE_LANG}/settings.json .local/share/code-server/User/settings.json
 RUN ./setup_lang.sh && \
