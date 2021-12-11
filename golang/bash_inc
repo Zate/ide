@@ -11,6 +11,12 @@ upPip() {
 }
 
 upGo() {
+    INST_VER=$(go version | cut -d" " -f3)
+    echo ${INST_VER}
+    #REM_VER=$(curl -s https://go.dev/VERSION?m=text)
+    REM_VER=$( wget -qO- https://golang.org/dl/ | grep 'id=\"go' | head -1 | grep -oP -e '(go[0-9\.]+)' )
+    echo ${REM_VER}
+    [[ $INST_VER == $REM_VER ]] && return || echo "Local: ${INST_VER} - Remote: ${REM_VER}"
     sudo rm -rf /usr/local/go
     wget -qO- https://golang.org$( wget -qO- https://golang.org/dl/ | grep -oP '/dl/go([0-9\.]+)\.linux-amd64.tar.gz' | head -1)  | sudo tar zxf - -C /usr/local
     upPath
