@@ -11,7 +11,7 @@ upPip() {
 }
 
 upGo() {
-    INST_VER=$(go version | cut -d" " -f3)
+    [[ -f /usr/local/go/bin/go ]] && INST_VER=$(go version | cut -d" " -f3) || INST_VER=""
     echo ${INST_VER}
     #REM_VER=$(curl -s https://go.dev/VERSION?m=text)
     REM_VER=$( wget -qO- https://golang.org/dl/ | grep 'id=\"go' | head -1 | grep -oP -e '(go[0-9\.]+)' )
