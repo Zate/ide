@@ -32,7 +32,7 @@ services:
         constraints:
           - node.role == manager
       labels:
-        - traefik.backend=ide
+        - traefik.backend=${USER}
         - traefik.frontend.rule=Host:${DOMAIN}
         - traefik.docker.network=traefik-public
         - traefik.enable=true
