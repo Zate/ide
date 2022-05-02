@@ -1,18 +1,7 @@
 version: '3'
 services:
-  ide:
-    image: ${IMAGE}:${ENV}
-    build:
-      context: .
-      args:
-        USER: ${USER}
-        EMAIL: ${EMAIL}
-        ENV: ${ENV}
-        IMAGE: ${IMAGE}
-        DOMAIN: ${DOMAIN}
-        IDE_LANG: ${IDE_LANG}
-    container_name: ide
-    restart: on-failure
+  n-ide:
+    image: ${IMAGE}
     environment:
       - USER=${USER}
       - EMAIL=${EMAIL}
@@ -24,9 +13,9 @@ services:
       - internal
       - traefik-public
     volumes:
-      - ${HOME}/go/src/github.com/${USER}:${HOME}/project:cached
-      - ${HOME}/.ssh:${HOME}/.ssh:cached
-      - ${HOME}/.local/share/code-server:${HOME}/.local/share/code-server:cached
+      - /home/zate/.ide/${USER}/projects:/home/${USER}/projects:cached
+      - /home/zate/.ide/${USER}/.ssh:/home/${USER}/.ssh:cached
+      - /home/zate/.ide/${USER}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
     deploy:
       placement:
         constraints:

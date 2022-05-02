@@ -27,8 +27,8 @@ COPY --chown=${USER}:${USER} ${IDE_LANG}/bash_inc .local/.bash_inc
 COPY --chown=${USER}:${USER} ${IDE_LANG}/setup_lang.sh setup_lang.sh
 COPY --chown=${USER}:${USER} ${IDE_LANG}/packages packages
 COPY --chown=${USER}:${USER} ${IDE_LANG}/settings.json .local/share/code-server/User/settings.json
-RUN ./setup_lang.sh && \
-    rm -rf ${HOME}/.env ${HOME}/setup_lang.sh ${HOME}/packages
+RUN ./setup_lang.sh
+RUN rm -rf ${HOME}/setup_lang.sh ${HOME}/packages
 #VOLUME [ "/home/${USER}/project" ]
 #VOLUME [ "/home/${USER}/.aws" ]
 #VOLUME [ "/home/${USER}/.ssh" ]
