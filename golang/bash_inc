@@ -1,6 +1,10 @@
 upCodeServer() {
     curl -fsSL https://code-server.dev/install.sh | sh -s --
 }
+upVSCodeServer() {
+    ~/bin/code-server update --accept-server-license-terms
+    # ~/bin/code-server --help
+}
 
 upAWS() {
     pip3 install -U awscli --user
@@ -70,15 +74,15 @@ upGoTools() {
 }
 
 upGoCodeX() {
-    code-server --install-extension CoenraadS.bracket-pair-colorizer
-    code-server --install-extension DavidAnson.vscode-markdownlint
-    code-server --install-extension ecmel.vscode-html-css
-    code-server --install-extension esbenp.prettier-vscode
-    code-server --install-extension golang.go
-    code-server --install-extension HookyQR.beautify
-    code-server --install-extension hwencc.html-tag-wrapper
-    code-server --install-extension mohd-akram.vscode-html-format
-    code-server --install-extension redhat.vscode-yaml
-    code-server --install-extension shd101wyy.markdown-preview-enhanced
-    code-server --install-extension yzhang.markdown-all-in-one
+    code-server serve-local --force --install-extension CoenraadS.bracket-pair-colorizer --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension DavidAnson.vscode-markdownlint --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension ecmel.vscode-html-css --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension esbenp.prettier-vscode --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension golang.go --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension HookyQR.beautify --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension hwencc.html-tag-wrapper --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension mohd-akram.vscode-html-format --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension redhat.vscode-yaml --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension shd101wyy.markdown-preview-enhanced --accept-server-license-terms --disable-telemetry --telemetry-level off
+    code-server serve-local --force --install-extension yzhang.markdown-all-in-one --accept-server-license-terms --disable-telemetry --telemetry-level off
 }

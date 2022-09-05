@@ -29,9 +29,31 @@ COPY --chown=${USER}:${USER} ${IDE_LANG}/packages packages
 COPY --chown=${USER}:${USER} ${IDE_LANG}/settings.json .local/share/code-server/User/settings.json
 RUN ./setup_lang.sh && \
     rm -rf ${HOME}/.env ${HOME}/setup_lang.sh ${HOME}/packages
-#VOLUME [ "/home/${USER}/project" ]
+# RUN echo "Setting git user and email"
+# RUN git config --global user.name ${USER}
+# RUN git config --global user.email ${EMAIL}
+# RUN echo "Upating Path"
+# # RUN upPath
+# RUN [[ $(grep -Fx 'source ~/.local/.bash_inc' ~/.bashrc) == "" ]] && echo 'source ~/.local/.bash_inc' >> ~/.bashrc
+# RUN [[ $(grep -Fx 'export GOPATH=$HOME/go' ~/.local/.bash_inc) == "" ]] && echo 'export GOPATH=$HOME/go' >> ~/.local/.bash_inc
+# RUN [[ $(grep -Fx 'export GOROOT=/usr/local/go' ~/.local/.bash_inc) == "" ]] && echo 'export GOROOT=/usr/local/go' >> ~/.local/.bash_inc
+# RUN [[ $(grep -Fx 'export GOBIN=$GOPATH/bin' ~/.local/.bash_inc) == "" ]] && echo 'export GOBIN=$GOPATH/bin' >> ~/.local/.bash_inc
+# RUN [[ $(grep -Fx 'export MYBIN=$HOME/bin' ~/.local/.bash_inc) == "" ]] && echo 'export MYBIN=$HOME/bin' >> ~/.local/.bash_inc
+# RUN [[ $(grep -Fx 'export PATH=$MYBIN:$GOPATH:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH' ~/.local/.bash_inc) == "" ]] && echo 'export PATH=$GOPATH:$GOROOT/bin:$HOME/bin:$HOME/.local/bin:$PATH' >> ~/.local/.bash_inc
+RUN source ~/.local/.bash_inc && \
+    echo "Updating Go" && \
+    upGo && \
+    upPath && \
+    go version && \
+    upGoTools && \
+    upGoCodeX
+
+# RUN upGoTools
+# RUN upGoCodeX
+#VOLUME [ "/home/${USER}/project" ]ß
 #VOLUME [ "/home/${USER}/.aws" ]
 #VOLUME [ "/home/${USER}/.ssh" ]
 EXPOSE 8443
 ENTRYPOINT ["dumb-init", "--", "entrypoint-docker.sh"]
-CMD ["code-server", "--host", "0.0.0.0", "--port", "8443", "--auth", "none", "--locale", "en-US"]
+# CMD ["~/bin/code-server", "--host", "0.0.0.0", "--port", "8443", "--auth", "none", "--locale", "en-US", "--accept-server-license-terms"]
+CMD ["~/bin/code-server", "serve-local", "--host", "0.0.0.0", "--port", "8443", "--without-connection-token", "--accept-server-license-terms", "--disable-telemetry"]
