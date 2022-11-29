@@ -34,9 +34,7 @@ RUN source ~/.local/.bash_inc && \
     echo "Updating Go" && \
     upGo && \
     upPath && \
-    go version && \
-    upGoTools && \
-    upGoCodeX
+    go version 
 EXPOSE 8443
 ENTRYPOINT ["dumb-init", "--", "entrypoint-docker.sh"]
 # CMD ["~/bin/code-server", "--host", "0.0.0.0", "--port", "8443", "--auth", "none", "--locale", "en-US", "--accept-server-license-terms"]
