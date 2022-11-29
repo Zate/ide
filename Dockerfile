@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as base
+FROM ubuntu:22.04 as base
 ARG USER
 ARG EMAIL
 WORKDIR /tmp
@@ -27,6 +27,7 @@ COPY --chown=${USER}:${USER} ${IDE_LANG}/bash_inc .local/.bash_inc
 COPY --chown=${USER}:${USER} ${IDE_LANG}/setup_lang.sh setup_lang.sh
 COPY --chown=${USER}:${USER} ${IDE_LANG}/packages packages
 COPY --chown=${USER}:${USER} ${IDE_LANG}/settings.json .local/share/code-server/User/settings.json
+COPY --chown=${USER}:${USER} ${IDE_LANG}/update.sh .local/bin/update.sh
 RUN ./setup_lang.sh && \
     rm -rf ${HOME}/.env ${HOME}/setup_lang.sh ${HOME}/packages
 RUN source ~/.local/.bash_inc && \

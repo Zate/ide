@@ -36,3 +36,10 @@ echo "Installing Code-Server"
 curl -fsSL https://aka.ms/vscode-server-launcher/x86_64-unknown-linux-gnu -o ~/bin/code-server
 chmod +x ~/bin/code-server
 # upVSCodeServer
+
+# setup a systemd service that runs update.sh on every boot
+echo "Setting up systemd service"
+sudo tee /etc/systemd/system/update.service <<EOF
+[Unit]
+Description=Update
+After=network.target
