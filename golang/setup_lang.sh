@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -euo pipefail
+set -euo pipefail
 
 packages=''
 
@@ -17,9 +17,16 @@ sudo apt-get update
 sudo apt-get --no-install-recommends upgrade -y
 sudo apt-get --no-install-recommends --no-install-suggests -y install ${packages}
 
+#setup vscode data files
+echo "Setting up vscode data files"
+ln -s ~/.local/share/code-server ~/.vscode-server
+
+echo "Setting git user and email"
 git config --global user.name ${USER}
 git config --global user.email ${EMAIL}
+echo "Upating Path"
 upPath
+echo "Updating pip"
 upPip
 echo "Installing Code-Server"
 # curl -fsSL https://code-server.dev/install.sh | sh -s --
@@ -31,8 +38,3 @@ chmod +x ~/bin/code-server
 # upVSCodeServer
 
 # setup a systemd service that runs update.sh on every boot
-# echo "Setting up systemd service"
-# sudo tee /etc/systemd/system/update.service <<EOF
-# [Unit]
-# Description=Update
-# After=network.target
