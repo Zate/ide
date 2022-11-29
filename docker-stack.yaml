@@ -1,28 +1,33 @@
 version: '3'
 services:
-  n-ide:
-    image: ${IMAGE}
+  ide:
+    image: "zate75/ide:${SUB}"
+    build:
+      context: .
+      args:
+        USER: ${USER}
+        EMAIL: ${EMAIL}
+        SUB: ${SUB}
+    container_name: ide-${SUB}
+    restart: on-failure
     environment:
       - USER=${USER}
       - EMAIL=${EMAIL}
-      - IMAGE=${IMAGE}
-      - ENV=${ENV}
-      - DOMAIN=${DOMAIN}
-      - IDE_LANG=${IDE_LANG}
+      - SUB=${SUB}
     networks:
-      - internal
       - traefik-public
+      - splunk
     volumes:
-      - /home/zate/.ide/${USER}/projects:/home/${USER}/projects:cached
-      - /home/zate/.ide/${USER}/.ssh:/home/${USER}/.ssh:cached
-      - /home/zate/.ide/${USER}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
+      - /home/zate/.ide/${SUB}/projects:/home/${USER}/projects:cached
+      - /home/zate/.ide/${SUB}/.ssh:/home/${USER}/.ssh:cached
+      - /home/zate/.ide/${SUB}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
     deploy:
       placement:
         constraints:
           - node.role == manager
       labels:
-        - traefik.backend=${USER}
-        - traefik.frontend.rule=Host:${DOMAIN}
+        - traefik.backend=ide
+        - traefik.frontend.rule=Host:${SUB}.zate.org
         - traefik.docker.network=traefik-public
         - traefik.enable=true
         - traefik.port=8443
@@ -35,5 +40,45 @@ services:
 networks:
   traefik-public:
     external: true
-  internal:
-    external: false
+  splunk:
+    external: true
+
+# version: '3'
+# services:
+#   n-ide:
+#     image: ${IMAGE}
+#     environment:
+#       - USER=${USER}
+#       - EMAIL=${EMAIL}
+#       - IMAGE=${IMAGE}
+#       - ENV=${ENV}
+#       - DOMAIN=${DOMAIN}
+#       - IDE_LANG=${IDE_LANG}
+#     networks:
+#       - internal
+#       - traefik-public
+#     volumes:
+#       - /home/zate/.ide/${USER}/projects:/home/${USER}/projects:cached
+#       - /home/zate/.ide/${USER}/.ssh:/home/${USER}/.ssh:cached
+#       - /home/zate/.ide/${USER}/.local/share/code-server:/home/${USER}/.local/share/code-server:cached
+#     deploy:
+#       placement:
+#         constraints:
+#           - node.role == manager
+#       labels:
+#         - traefik.backend=${USER}
+#         - traefik.frontend.rule=Host:${DOMAIN}
+#         - traefik.docker.network=traefik-public
+#         - traefik.enable=true
+#         - traefik.port=8443
+#         - traefik.tags=traefik-public
+#         - traefik.redirectorservice.frontend.entryPoints=http
+#         - traefik.redirectorservice.frontend.redirect.entryPoint=https
+#         # Traefik service that listens to HTTPS
+#         - traefik.webservice.frontend.entryPoints=https
+
+# networks:
+#   traefik-public:
+#     external: true
+#   internal:
+#     external: false

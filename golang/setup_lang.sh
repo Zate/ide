@@ -31,8 +31,8 @@ chmod +x ~/bin/code-server
 # upVSCodeServer
 
 # setup a systemd service that runs update.sh on every boot
-echo "Setting up systemd service"
-sudo tee /etc/systemd/system/update.service <<EOF
-[Unit]
-Description=Update
-After=network.target
+# echo "Setting up systemd service"
+# sudo tee /etc/systemd/system/update.service <<EOF
+# [Unit]
+# Description=Update
+# After=network.target
